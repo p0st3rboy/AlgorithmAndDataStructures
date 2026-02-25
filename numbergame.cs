@@ -1,0 +1,81 @@
+﻿using System;
+
+namespace numbergame
+{
+    internal class Program
+    {
+        /// <summary>
+        /// Просит ввод числа от 1 от 100
+        /// </summary>
+        /// <param name="randnum"> Рандомное число, которое мы угадываем (от 1 до 100) </param>
+        /// <returns> Сообщение с запросом о вводе числа в определенном диапазоне </returns>
+        static void Main(string[] randnum)
+        {
+            Console.WriteLine("Enter a number between 1 and 100");
+            int randomnum = random();
+            comparison(randomnum);
+
+        }
+
+        /// <summary>
+        /// Генерируется случайное число от 1 до 101   
+        /// </summary>
+        /// <returns> Случайное число в диапазоне от 1 до 101 </returns>
+        static int random()
+        {
+            Random rnd = new Random();
+            return rnd.Next(1, 101);
+        }
+        /// <summary>
+        /// Проверяет правильность набранных чисел
+        /// </summary>
+        /// <param name="usnum"> Число набранное с клавиатуры в диапазоне от 1 до 100 </param>
+        /// <returns> В случае неверного ввода данных сообщение об некорректном вводе числа </returns>
+        static int CheckNum(int usnum)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (!int.TryParse(Console.ReadLine(), out usnum) || usnum > 100 || usnum < -1)
+                    Console.WriteLine("Incorrect input number");
+
+                else break;
+                if (i == 2)
+                {
+                    Console.WriteLine("You're dumb");
+                    Environment.Exit(0);
+                }
+
+            }
+            return usnum;
+        }
+        /// <summary>
+        /// Сравнивает введенное с клавиатуры число со случайным
+        /// </summary>
+        /// <param name="randomnum">Случайное число</param>
+        /// <param name="check">Проверенное число введенное с клавиатуры</param>
+        /// <returns>Сообщение что введеное число больше/меньше либо о том что вы угадали</returns>
+        static int comparison(int randomnum)
+        {
+
+            while (true)
+            {
+
+                int check = CheckNum(randomnum);
+
+
+
+                if (check < randomnum)
+                    Console.WriteLine("Your number is less");
+                else if (check > randomnum)
+                    Console.WriteLine("Your number is great");
+                else
+                {
+                    Console.WriteLine("You Win");
+                    break;
+                }
+
+            }
+            return randomnum;
+        }
+    }
+}
